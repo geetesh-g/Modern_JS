@@ -1,25 +1,25 @@
 // async, await and closure
 // in last class what we done in about double lines and about double complexity
 
-// async function getUser() {
-// 	let users = await fetchUsers();
-// 	for (let user of users) {
-// 		console.log("**USER**", user.name);
-// 		let userId = user.userId;
-// 		let posts = await fetchPosts(userId);
-// 		for (let post of posts) {
-// 			console.log("**POST**");
-// 			console.log(post.title);
-// 			let postId = post.postId;
-// 			let comments = await fetchComments(postId);
-// 			console.log("**COMMENTS**");
-// 			for (let comment of comments) {
-// 				console.log(comment.name);
-// 			}
-// 		}
-// 	}
-// }
-// getUser();
+async function getUser() {
+	let users = await fetchUsers();
+	for (let user of users) {
+		console.log("**USER**", user.name);
+		let userId = user.userId;
+		let posts = await fetchPosts(userId);
+		for (let post of posts) {
+			console.log("**POST**");
+			console.log(post.title);
+			let postId = post.postId;
+			let comments = await fetchComments(postId);
+			console.log("**COMMENTS**");
+			for (let comment of comments) {
+				console.log(comment.name);
+			}
+		}
+	}
+}
+getUser();
 //-----------------------------------Don't touch the code below this line-------------------------------//
 
 let dummyUsers = [
@@ -503,9 +503,7 @@ function fetchUsers() {
 function fetchPosts(userId) {
 	return new Promise(function (resolve, reject) {
 		const random = Math.random() * 1000;
-
 		if (userId > 3) reject(new Error("Invalid User."));
-
 		setTimeout(function () {
 			resolve(dummyPosts.filter((item) => item.userId === userId));
 		}, random);
@@ -516,7 +514,6 @@ function fetchComments(postId) {
 		const random = Math.random() * 1000;
 		setTimeout(function () {
 			if (postId > 12) reject(new Error("Post not found."));
-
 			resolve(dummyComments.filter((item) => item.postId === postId));
 		}, random);
 	});
